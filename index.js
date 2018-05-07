@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -31,7 +29,7 @@ const read_file = path => {
     });
 }
 
-const main = async () => {
+const dessi = async () => {
 
     // process arguments
     // TODO: assume root dir is source if not given
@@ -121,5 +119,5 @@ const main = async () => {
     process_dir(source_dir, target_dir);
 }
 
-main();
+module.exports = dessi;
 

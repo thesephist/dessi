@@ -1,0 +1,12 @@
+{
+  "name": "dessi",
+  "version": "0.5",
+  "description": "A quick, simple server-side-includes expander",
+  "main": "index.js",
+  "repository": "git@github.com:thesephist/dessi.git",
+  "author": "Linus Lee <linus@thesephist.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^6.0.0"
+  }
+}

@@ -32,7 +32,6 @@ const read_file = path => {
 const dessi = async () => {
 
     // process arguments
-    // TODO: assume root dir is source if not given
     const args = process.argv.slice(1);
     const cwd = process.cwd();
     let root_dir,
@@ -53,11 +52,15 @@ const dessi = async () => {
     log(`Path root:\n\t${root_dir}`);
     log('');
 
+    if (root_dir === undefined) {
+        root_dir = source_dir;
+    }
+
     if (!(
         source_dir && target_dir && root_dir
     )) {
-        error('Please specify the --source, --target, and --root directories.');
-        return 1;
+        error('Please specify the --source and --target directories.');
+        return;
     }
 
     // copy source_dir to target_dir, parsing any relevant files
@@ -71,8 +74,15 @@ const dessi = async () => {
             const match = SSI_REGEX.exec(part);
             if (match !== null) {
                 const [_discard, pre, includePath, post] = match;
+
+                let file_contents = read_file(translate_path(root_dir, includePath));
+                if (SSI_EXTENSIONS.includes(path.extname(includePath))) {
+                    log(`Following nested include ${includePath}`);
+                    file_contents = ssi_expand(file_contents);
+                }
+
                 result.push(pre);
-                result.push(ssi_expand(read_file(translate_path(root_dir, includePath))));
+                result.push(file_contents);
                 result.push(post);
             } else {
                 result.push(part);
@@ -88,7 +98,12 @@ const dessi = async () => {
             const absolute_source_path = path.join(working_source_dir, child);
             const absolute_target_path = path.join(working_target_dir, child);
 
-            progress(`Processing ${path.relative(cwd, absolute_source_path)}`);
+            if (path.basename(absolute_source_path).startsWith('.')) {
+                checkpoint(`Ignoring dotfile ${path.relative(cwd, absolute_source_path)}`);
+                continue;
+            } else {
+                progress(`Processing ${path.relative(cwd, absolute_source_path)}`);
+            }
 
             if (is_dir) {
                 if (path.join(absolute_source_path, path.sep).includes(target_dir)) {

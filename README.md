@@ -48,6 +48,8 @@ And that's it! Invoke Dessi by going to a directory that contains the files you'
 dessi --source=<source directory> --target=<target directory>
 ```
 
+If you've used `npx`, you can also just run Dessi as a package with `npx dessi <...options>` without installing anything.
+
 You'll find more instructions in the __Manual__ section below.
 
 ## Manual

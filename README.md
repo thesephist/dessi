@@ -24,6 +24,8 @@ An SSI in action looks like this;
 
 The web server will attempt to parse the HTML for the include directives, and dynamically fill them in when the page is served.
 
+Dessi will take an entire site (or parts of it, if told to), expand out the include directives as if they were being served by a web server, but save those files instead to disk, so you have a fully static version of the SSI site.
+
 ### Why an expander?
 
 I recently had to migrate an SSI-enabled static site out of a controlled environment with SSI into a completely static host. Rather than build a specific script to do the "expansion" into a completely static site, I wrote __Dessi__ to make the process generalizable to my other static sites.
@@ -43,7 +45,7 @@ yarn global add Dessi
 And that's it! Invoke Dessi by going to a directory that contains the files you'd like to expand, and run:
 
 ```sh
-Dessi --source=<source directory> --target=<target directory>
+dessi --source=<source directory> --target=<target directory>
 ```
 
 You'll find more instructions in the __Manual__ section below.
@@ -61,7 +63,7 @@ Dessi takes three command line arguments:
 For example:
 
 ```sh
-Dessi --root=. --target=./dist --source=.
+dessi --root=. --target=./dist --source=.
 ```
 
 Note that Dessi explicitly requires you to use the `=` sign to specify options. This is something I'd like to fix but haven't had the time to yet, as it works fine without this functionality.
@@ -75,7 +77,7 @@ $ ls .
 
 mydir/ destdir/ other_files.html
 
-$ Dessi --source=. --target=./destdir
+$ dessi --source=. --target=./destdir
 
 [...] # output abridged
 

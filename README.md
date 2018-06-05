@@ -36,10 +36,10 @@ Install with npm. Dessi is designed to be installed globally as an NPM package:
 
 ```sh
 # with the npm package manager
-npm install --global Dessi
+npm install --global dessi
 
 # ... or with the yarn package manager
-yarn global add Dessi
+yarn global add dessi
 ```
 
 And that's it! Invoke Dessi by going to a directory that contains the files you'd like to expand, and run:
